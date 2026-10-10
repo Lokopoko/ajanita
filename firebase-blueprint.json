@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "romanticConfig": {
+      "title": "RomanticConfig",
+      "description": "Configuration and memories for the romantic experience",
+      "type": "object",
+      "properties": {
+        "girlfriendName": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "welcomeTitle": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "welcomeMessage": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "quizQuestions": {
+          "type": "array"
+        },
+        "targetHearts": {
+          "type": "number"
+        },
+        "miniGameTitle": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "miniGameSubtitle": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "letterTitle": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "letterBody": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "letterSignoff": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "couponTitle": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "couponOffer": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "couponTerms": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "couponCode": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "adminPassword": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "required": ["girlfriendName", "adminPassword", "quizQuestions", "letterBody"]
+    },
+    "loveMilestone": {
+      "title": "LoveMilestone",
+      "description": "Milestones and sweet responses submitted during gameplay",
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "required": ["eventType", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/romantic_config/{configId}": {
+      "schema": "romanticConfig",
+      "description": "Global romantic configuration document edited by the admin"
+    },
+    "/milestones/{milestoneId}": {
+      "schema": "loveMilestone",
+      "description": "Milestones, kisses caught, and cute girlfriend responses"
+    }
+  }
+}

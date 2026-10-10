@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidConfig(data) {
+      return data.keys().hasAll(['girlfriendName', 'adminPassword', 'quizQuestions', 'letterBody']) &&
+        data.girlfriendName is string && data.girlfriendName.size() <= 60 &&
+        data.adminPassword is string && data.adminPassword.size() <= 100 &&
+        data.letterBody is string && data.letterBody.size() <= 4000 &&
+        data.quizQuestions is list && data.quizQuestions.size() <= 10 &&
+        (!('welcomeTitle' in data) || (data.welcomeTitle is string && data.welcomeTitle.size() <= 100)) &&
+        (!('welcomeMessage' in data) || (data.welcomeMessage is string && data.welcomeMessage.size() <= 300)) &&
+        (!('targetHearts' in data) || (data.targetHearts is number && data.targetHearts >= 1 && data.targetHearts <= 50)) &&
+        (!('miniGameTitle' in data) || (data.miniGameTitle is string && data.miniGameTitle.size() <= 100)) &&
+        (!('miniGameSubtitle' in data) || (data.miniGameSubtitle is string && data.miniGameSubtitle.size() <= 200)) &&
+        (!('letterTitle' in data) || (data.letterTitle is string && data.letterTitle.size() <= 150)) &&
+        (!('letterSignoff' in data) || (data.letterSignoff is string && data.letterSignoff.size() <= 150)) &&
+        (!('couponTitle' in data) || (data.couponTitle is string && data.couponTitle.size() <= 100)) &&
+        (!('couponOffer' in data) || (data.couponOffer is string && data.couponOffer.size() <= 300)) &&
+        (!('couponTerms' in data) || (data.couponTerms is string && data.couponTerms.size() <= 300)) &&
+        (!('couponCode' in data) || (data.couponCode is string && data.couponCode.size() <= 40)) &&
+        (!('updatedAt' in data) || (data.updatedAt is string && data.updatedAt.size() <= 50));
+    }
+
+    function isValidMilestone(data) {
+      return data.keys().hasAll(['eventType', 'createdAt']) &&
+        data.eventType is string && data.eventType.size() <= 50 &&
+        data.createdAt is string && data.createdAt.size() <= 50 &&
+        (!('message' in data) || (data.message is string && data.message.size() <= 500));
+    }
+
+    // Romantic configuration
+    match /romantic_config/{configId} {
+      allow get: if isValidId(configId);
+      allow list: if true;
+      allow create, update: if isValidId(configId) && isValidConfig(request.resource.data);
+      allow delete: if false;
+    }
+
+    // Milestones and girlfriend sweet replies
+    match /milestones/{milestoneId} {
+      allow get: if isValidId(milestoneId);
+      allow list: if true;
+      allow create: if isValidId(milestoneId) && isValidMilestone(request.resource.data);
+      allow update, delete: if false;
+    }
+  }
+}

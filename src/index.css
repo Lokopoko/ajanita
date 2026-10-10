@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow-x: hidden;
+    background-color: #fff5f8;
+  }
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.font-cute {
+  font-family: 'Nunito', sans-serif;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-9px) rotate(-3deg); }
+  40%, 80% { transform: translateX(9px) rotate(3deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(-4deg); }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes pop-heart {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2.2s ease-in-out infinite;
+}
+
+.animate-pop-heart {
+  animation: pop-heart 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Custom scrollbar for cute look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fdf2f8;
+}
+::-webkit-scrollbar-thumb {
+  background: #f472b6;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ec4899;
+}

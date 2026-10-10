@@ -1,0 +1,8 @@
+{
+  "name": "Sweetheart Quest - Our Love Story",
+  "description": "A gamified romantic journey featuring couples trivia, Catch the Kisses mini-game, digital love letter, surprise love coupon, and real-time custom memory controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
